@@ -18,6 +18,29 @@ This directory contains the hands-on practice documentation, architectural analy
 - **Prometheus**: Time-series database that pulls metrics from Kubernetes nodes and pods using scrapers (`kube-state-metrics`, `node-exporter`).
 - **Grafana**: Visualization platform rendering real-time dashboards for CPU, memory, network, and application SLA metrics.
 
+### Hands-on Monitoring Demonstration:
+```bash
+# 1. CPU & Memory Utilization Metrics:
+kubectl top nodes
+kubectl top pods -n gitops-demo
+
+# 2. Application & System Logs:
+kubectl logs -n gitops-demo -l app=gitops-webapp --tail=50 -f
+
+# 3. Application Health Probes (Liveness & Readiness):
+kubectl describe deployment gitops-webapp -n gitops-demo | grep -E "Liveness|Readiness"
+curl -I http://<SERVICE_IP>/healthz
+
+# 4. Prometheus Alert Rule Example (High CPU Warning):
+# alert: HighCpuUsage
+# expr: sum(rate(container_cpu_usage_seconds_total[5m])) by (pod) > 0.85
+# for: 5m
+# labels:
+#   severity: critical
+# annotations:
+#   summary: "Pod CPU utilization exceeds 85%"
+```
+
 ### Terminal Screenshots:
 - **Prometheus & Grafana Monitoring Dashboards**:
   ![Monitoring Output](./screenshots/01-monitoring.png)
@@ -82,7 +105,8 @@ Developer ──► Git Commit ──► GitHub Repository
 - **Namespace**: [`gitops/namespace.yaml`](./gitops/namespace.yaml)
 - **Deployment**: [`gitops/deployment.yaml`](./gitops/deployment.yaml)
 - **Service**: [`gitops/service.yaml`](./gitops/service.yaml)
-- **ArgoCD Application CRD**: [`gitops/argocd-application.yaml`](./argocd-application.yaml)
+- **ArgoCD Application CRD**: [`gitops/argocd-application.yaml`](./gitops/argocd-application.yaml)
 
 ### GitOps & ArgoCD Sync Verification:
 ![GitOps Reconciliation Output](./screenshots/03-gitops.png)
+
