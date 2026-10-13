@@ -54,3 +54,47 @@ chmod +x system_info.sh
 # 2. Execute script
 ./system_info.sh
 ```
+
+---
+
+## Terminal Execution Output
+
+```text
+==================================================
+          SYSTEM INFORMATION SCRIPT              
+==================================================
+
+[+] Current Date & Time : Wed Oct 14 00:33:56 IST 2026
+[+] System Hostname     : Raghavs-MacBook-Air-3.local
+[+] Active Username     : raghavrathi
+
+--------------------------------------------------
+               DISK USAGE OVERVIEW                
+--------------------------------------------------
+Filesystem        Size    Used   Avail Capacity Mounted on
+/dev/disk3s1s1   228Gi    13Gi    18Gi    43%   /
+/dev/disk3s5     228Gi   167Gi    18Gi    91%   /System/Volumes/Data
+--------------------------------------------------
+
+[+] Setting up log directory and process file...
+Enter directory name to create [default: system_logs]: system_logs
+Enter log filename to save running processes [default: process_list.txt]: process_list.txt
+
+[+] Processing your input...
+[+] Executing: mkdir -p system_logs
+[+] Executing: touch system_logs/process_list.txt
+[+] Collecting running processes using 'ps aux'...
+
+==================================================
+ SUCCESS: Running processes stored successfully!
+ Log Saved At : system_logs/process_list.txt
+ Log File Size: 128317 bytes
+ Total Lines  : 479 lines
+==================================================
+
+[+] First 10 lines of stored processes log:
+--------------------------------------------------
+USER               PID  %CPU %MEM      VSZ    RSS   TT  STAT STARTED      TIME COMMAND
+raghavrathi      23947  33.6  8.7 497350080 1466192   ??  Ss    1:36AM 220:24.64 /System/Library/Frameworks/Virtualization.framework/...
+--------------------------------------------------
+```
