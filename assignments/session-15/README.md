@@ -42,34 +42,29 @@ This directory contains the hands-on deliverables, Helm chart manifests, rollbac
 ### Step-by-Step Rollback Execution:
 1. **Initial Installation (Revision 1)**:
    ```bash
-   helm install notes-release ./notes-chart --set replicaCount=2
-   # Status: DEPLOYED, Revision: 1
+   cd ./notes-chart
+   helm install demo-release .
+   # Status: deployed, Revision: 1
    ```
 2. **First Upgrade (Revision 2)**:
    ```bash
-   helm upgrade notes-release ./notes-chart --set replicaCount=5
-   # Status: DEPLOYED, Revision: 2
+   helm upgrade demo-release . --set replicaCount=3
+   # Status: deployed, Revision: 2
    ```
 3. **Verification**:
    ```bash
-   kubectl get pods -l app=notes-release
-   # Output: 5 replicas running
+   helm history demo-release
+   # Shows Revision 1 (superseded) and Revision 2 (deployed)
    ```
-4. **Faulty Upgrade (Revision 3)**:
+4. **Rollback Execution**:
    ```bash
-   helm upgrade notes-release ./notes-chart --set image.tag=nonexistent-tag-999
-   # Status: ImagePullBackOff observed in cluster
+   helm rollback demo-release 1
+   # Output: Rollback was a success! Happy Helming!
    ```
-5. **Rollback Execution**:
+5. **Final Verification**:
    ```bash
-   helm rollback notes-release 2
-   # Output: Rollback to revision 2 successful
-   ```
-6. **Final Verification**:
-   ```bash
-   helm history notes-release
-   kubectl get pods -l app=notes-release
-   # Output: Reverted clean state with 5 healthy running replicas
+   helm history demo-release
+   # Output: Revision 3 with description "Rollback to 1", Status: deployed
    ```
 
 - **Helm Rollback Verification Output**:
@@ -86,16 +81,17 @@ Directory [`notes-chart/`](./notes-chart/) contains the enterprise-ready web app
 - `values-prod.yaml`: Production override configuration (`replicaCount: 4`, `service.type: NodePort`).
 - `templates/`: Dynamic Kubernetes manifests (`deployment.yaml`, `service.yaml`).
 
-### Deployment Execution:
+### Deployment & Verification Execution:
 ```bash
 # Lint chart templates
 helm lint ./notes-chart
 
-# Dry run deployment template rendering
-helm install notes-prod ./notes-chart -f ./notes-chart/values-prod.yaml --dry-run
-
 # Production deployment
-helm install notes-prod ./notes-chart -f ./notes-chart/values-prod.yaml
+helm install demo-release ./notes-chart -f ./notes-chart/values-prod.yaml
+
+# Verify release status and deployed cluster resources
+helm status demo-release
+kubectl get pods,svc,deploy
 ```
 
 - **Mini Project Deployment Output**:
