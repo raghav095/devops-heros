@@ -1,23 +1,26 @@
-import pytest
+import unittest
 from app.app import app
 
-@pytest.fixture
-def client():
-    app.config['TESTING'] = True
-    with app.test_client() as client:
-        yield client
+class TestDevSecOpsApp(unittest.TestCase):
+    def setUp(self):
+        app.config['TESTING'] = True
+        self.client = app.test_client()
 
-def test_home(client):
-    rv = client.get('/')
-    assert rv.status_code == 200
-    assert b"DevSecOps Demo Application" in rv.data
+    def test_home(self):
+        rv = self.client.get('/')
+        self.assertEqual(rv.status_code, 200)
+        self.assertIn(b"DevSecOps Demo Application", rv.data)
 
-def test_health(client):
-    rv = client.get('/health')
-    assert rv.status_code == 200
-    assert b"healthy" in rv.data
+    def test_health(self):
+        rv = self.client.get('/health')
+        self.assertEqual(rv.status_code, 200)
+        self.assertIn(b"healthy", rv.data)
 
-def test_status(client):
-    rv = client.get('/api/status')
-    assert rv.status_code == 200
-    assert b"running" in rv.data
+    def test_status(self):
+        rv = self.client.get('/api/status')
+        self.assertEqual(rv.status_code, 200)
+        self.assertIn(b"running", rv.data)
+
+if __name__ == '__main__':
+    unittest.main()
+

@@ -11,13 +11,22 @@ This directory contains the application codebase, containerization specification
 Code
   │
   ▼
-Build & Unit Tests
+Build
   │
   ▼
-SAST (Bandit) ───► SCA (Safety) ───► Secret Scan (Trufflehog)
+Unit Test
   │
   ▼
-Docker Image Build
+SAST (Bandit)
+  │
+  ▼
+SCA (Safety)
+  │
+  ▼
+Secret Scan (TruffleHog)
+  │
+  ▼
+Docker Build
   │
   ▼
 Container Image Scan (Trivy)
@@ -29,7 +38,7 @@ Security Gate (Enforce zero HIGH/CRITICAL vulnerabilities)
 Push Image to Registry
   │
   ▼
-Deploy to Kubernetes Cluster
+Deploy to Kubernetes
 ```
 
 ---

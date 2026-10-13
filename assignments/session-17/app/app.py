@@ -7,7 +7,7 @@ import os
 app = Flask(__name__)
 
 _request_count = 0
-_start_time = datetime.datetime.utcnow()
+_start_time = datetime.datetime.now(datetime.timezone.utc)
 
 def _increment_requests():
     global _request_count
@@ -21,11 +21,11 @@ def home():
 @app.route("/health")
 def health():
     _increment_requests()
-    uptime_seconds = (datetime.datetime.utcnow() - _start_time).total_seconds()
+    uptime_seconds = (datetime.datetime.now(datetime.timezone.utc) - _start_time).total_seconds()
     return jsonify({
         "status": "healthy",
         "uptime_seconds": round(uptime_seconds, 2),
-        "timestamp": datetime.datetime.utcnow().isoformat() + "Z",
+        "timestamp": datetime.datetime.now(datetime.timezone.utc).isoformat(),
     })
 
 @app.route("/api/status")
