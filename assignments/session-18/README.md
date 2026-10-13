@@ -18,9 +18,19 @@ terraform init
 terraform fmt
 terraform validate
 terraform plan
+terraform apply -auto-approve
+terraform show
+terraform output
+terraform destroy -auto-approve
 ```
 
-![Task 1 Output](./screenshots/01-terraform-s3.png)
+### Live AWS & Terminal Verification Screenshots:
+- **01. Terraform Show Resource State (Live S3 Bucket)**:
+  ![Task 1 S3 Resource State](./screenshots/01-terraform-s3-apply.png)
+- **02. Terraform Outputs (Bucket ID & ARN)**:
+  ![Task 1 S3 Outputs](./screenshots/02-terraform-s3-output.png)
+- **03. AWS Management Console (S3 Bucket & Sydney Region)**:
+  ![Task 1 S3 AWS Console](./screenshots/03-aws-s3-console.png)
 
 ---
 
@@ -33,4 +43,5 @@ Comprehensive research and architectural documentation for core AWS services:
 - 📄 `aws-services/04-vpc/README.md`: VPC Networking, CIDR, Subnets, Route Tables, Internet Gateway, NAT Gateway & NACLs.
 - 📄 `aws-services/05-dynamodb-rds/README.md`: DynamoDB NoSQL vs RDS Relational Databases (Aurora, PostgreSQL, Multi-AZ).
 
-![Task 2 Output](./screenshots/02-aws-services.png)
+- **04. AWS Services Research Documentation Overview**:
+  ![Task 2 AWS Services Research](./screenshots/04-aws-services-research.png)

@@ -49,10 +49,20 @@ terraform init
 terraform fmt
 terraform validate
 terraform plan
+terraform apply -auto-approve
+terraform show
+terraform output
+terraform destroy -auto-approve
 ```
 
 ---
 
-## Screenshots & Outputs
-![Task 1 Output](./screenshots/01-terraform-vpc.png)
-![Task 2 Output](./screenshots/02-cloud-infrastructure.png)
+## Live AWS & Terminal Verification Screenshots:
+- **01. Terraform Apply Execution & 6 Resources Added**:
+  ![Task 1 Terraform Apply](./screenshots/01-terraform-apply.png)
+- **02. Terraform Show Resource State (IGW, Route Table, Subnet)**:
+  ![Task 2 Show Resources](./screenshots/02-terraform-show-resources.png)
+- **03. Terraform Show Resource State (VPC & Outputs)**:
+  ![Task 3 Show Outputs](./screenshots/03-terraform-outputs.png)
+- **04. AWS Management Console (Available VPC in Sydney Region)**:
+  ![Task 4 AWS VPC Console](./screenshots/04-aws-vpc-console.png)
